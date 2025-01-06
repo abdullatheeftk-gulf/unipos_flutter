@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unipos_flutter/repositories/api/api_repository.dart';
 import 'package:unipos_flutter/repositories/api/http_routes.dart';
+import 'package:unipos_flutter/repositories/shared/shared_repository.dart';
 import 'package:unipos_flutter/util/routes.dart';
 
 void main() {
@@ -23,6 +24,11 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) =>
               ApiRepository(dio: RepositoryProvider.of<Dio>(context)),
+        ),
+
+        RepositoryProvider(
+          create: (context) =>
+              SharedRepository(),
         ),
       ],
       child: MaterialApp(

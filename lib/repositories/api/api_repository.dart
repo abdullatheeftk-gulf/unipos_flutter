@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:unipos_flutter/models/customer/customer.dart';
+import 'package:unipos_flutter/models/api/customer/customer.dart';
 import 'package:unipos_flutter/repositories/api/http_routes.dart';
 import 'package:unipos_flutter/util/log_functions.dart';
 part 'requests/welcome.dart';

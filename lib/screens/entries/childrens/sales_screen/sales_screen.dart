@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:unipos_flutter/models/customer/customer.dart';
+import 'package:unipos_flutter/models/api/customer/customer.dart';
 import 'package:unipos_flutter/repositories/api/api_repository.dart';
-import 'package:unipos_flutter/screens/sales_screen/cubit/sales_screen_cubit.dart';
+import 'package:unipos_flutter/repositories/shared/shared_repository.dart';
+import 'package:unipos_flutter/screens/entries/childrens/sales_screen/cubit/sales_screen_cubit.dart';
 import 'package:unipos_flutter/util/date_time_format.dart';
-import 'package:unipos_flutter/util/log_functions.dart';
+import 'package:unipos_flutter/util/routes.dart';
 
 class SalesScreen extends StatefulWidget {
   const SalesScreen({super.key});
@@ -20,8 +21,6 @@ class _SalesScreenState extends State<SalesScreen> {
   String _date = dateFormat(DateTime.now());
   String _time = timeFormat(DateTime.now());
 
-  
-
   Customer? _selectedCustomer;
 
   @override
@@ -30,6 +29,7 @@ class _SalesScreenState extends State<SalesScreen> {
       create: (context) => SalesScreenCubit(
         apiRepository: context.read<ApiRepository>(),
         dio: context.read<Dio>(),
+        sharedRepository: context.read<SharedRepository>(),
       ),
       child: BlocConsumer<SalesScreenCubit, SalesScreenState>(
         listenWhen: (prev, cur) {
@@ -44,7 +44,7 @@ class _SalesScreenState extends State<SalesScreen> {
         buildWhen: (prev, cur) {
           return cur.maybeWhen(
             orElse: () => false,
-            slaesScreenBuildState: (a, b, c,d) => true,
+            slaesScreenBuildState: (a, b, c, d) => true,
           );
         },
         builder: (context, state) {
@@ -57,7 +57,6 @@ class _SalesScreenState extends State<SalesScreen> {
               _selectedCustomer = value.selectedCustomer;
             },
           );
-
 
           return Scaffold(
             appBar: AppBar(
@@ -117,9 +116,7 @@ class _SalesScreenState extends State<SalesScreen> {
 
                   TextFormField(
                     readOnly: true,
-                    onTap: () {
-                      
-                    },
+                    onTap: () {},
                     decoration: InputDecoration(
                       labelText: "Customer",
                       hintText: "Select a Customer",
@@ -130,8 +127,18 @@ class _SalesScreenState extends State<SalesScreen> {
                           color: Colors.black38,
                         ),
                       ),
-                      prefixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.person)),
-                      suffixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios)),
+                      prefixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.person),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, customerSelection);
+                        },
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                        ),
+                      ),
                     ),
                     controller: TextEditingController(
                       text: _selectedCustomer?.name ?? "",
@@ -146,5 +153,5 @@ class _SalesScreenState extends State<SalesScreen> {
     );
   }
 
-  
+ 
 }

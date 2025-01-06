@@ -17,13 +17,5 @@ class SalesScreenState with _$SalesScreenState {
     required String? errorMessage,
   }) = _SlaesScreenListenerState;
 
-  const factory SalesScreenState.salesScreenCustomerSelectionBuildState({
-    required List<Customer> customers,
-    @Default(false) bool isLoading,
-  }) = _SalesScreenCustomerSelectionBuildState;
-
-
-  const factory SalesScreenState.salesScreenCustomerSelectionListenerState({
-    required String? errorMessage,
-  }) = _SalesScreenCustomerSelectionListenerState;
+  
 }

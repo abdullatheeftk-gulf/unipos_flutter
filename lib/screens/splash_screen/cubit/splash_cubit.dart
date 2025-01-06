@@ -17,7 +17,7 @@ class SplashCubit extends Cubit<SplashState> {
   void _getWelcomeMessage() async {
     try {
       emit(SplashState.splashBuildState(isWelcomeMessageLoading: true));
-      final welcomeMessage = await apiRepository.getWelcomeMessage(dio);
+      final welcomeMessage = await apiRepository.getWelcomeMessage();
       emit(SplashState.splashBuildState(
           welcomeMessage: welcomeMessage, isWelcomeMessageLoading: false));
       await Future.delayed(const Duration(seconds: 8));

@@ -1,7 +1,8 @@
 part of '../api_repository.dart';
 
 mixin Welcome {
-  Future<String> getWelcomeMessage(Dio dio) async {
+  Dio get dio;
+  Future<String> getWelcomeMessage() async {
     try {
       final Response response = await dio.get(HttpRoutes.WELCOME);
 

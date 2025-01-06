@@ -1,7 +1,8 @@
 part of '../api_repository.dart';
 
 mixin Sales {
-  Future<List<Customer>> fetchCustomers(Dio dio)async{
+  Dio get dio;
+  Future<List<Customer>> fetchCustomers()async{
     try {
       final response = await dio.get(HttpRoutes.CUSTOMERS);
       if(response.statusCode != 200){
